@@ -1,6 +1,6 @@
-using MPSXD
+using MPSLabXD
 using Test
 
-@testset "MPSXD.jl" begin
+@testset "MPSLabXD.jl" begin
     # Write your tests here.
 end
