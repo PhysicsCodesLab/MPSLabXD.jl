@@ -1,10 +1,10 @@
 ```@meta
-CurrentModule = MPSXD
+CurrentModule = MPSLabXD
 ```
 
 # MPSXD
 
-Documentation for [MPSXD](https://github.com/PhysicsCodesLab/MPSXD.jl).
+Documentation for [MPSLabXD](https://github.com/PhysicsCodesLab/MPSLabXD.jl).
 
 write something here!
 
@@ -12,5 +12,5 @@ write something here!
 ```
 
 ```@autodocs
-Modules = [MPSXD]
+Modules = [MPSLabXD]
 ```

@@ -108,9 +108,9 @@ uuid = "61eb1bfa-7361-4325-ad38-22787b887f55"
 version = "0.12.9"
 
 [[HalfIntegers]]
-git-tree-sha1 = "5af4a70115e6237ce2a1444094296119067745b3"
+git-tree-sha1 = "dc0ce9efc3d88c6cefc4e1f9c29b397be8734cfc"
 uuid = "f0d1745a-41c9-11e9-1dd9-e5d34d218721"
-version = "1.4.1"
+version = "1.4.2"
 
 [[InteractiveUtils]]
 deps = ["Markdown"]
@@ -326,6 +326,14 @@ git-tree-sha1 = "4d581938087ca90eab9bd4bb6d270edaefd70dcd"
 uuid = "5e0ebb24-38b0-5f93-81fe-25c709ecae67"
 version = "1.1.2"
 
+[[StridedTensorXD]]
+deps = ["LinearAlgebra", "Random", "TupleLabXD"]
+git-tree-sha1 = "5e6dd00459d8a9ebadbc13a71f2403efe6e95a43"
+repo-rev = "main"
+repo-url = "https://github.com/PhysicsCodesLab/StridedTensorXD.jl"
+uuid = "264d0366-5c21-4846-9aa6-f0da616294d5"
+version = "0.1.0"
+
 [[TOML]]
 deps = ["Dates"]
 uuid = "fa267f1f-6049-4f14-aa54-33bafae1ed76"
@@ -334,19 +342,27 @@ uuid = "fa267f1f-6049-4f14-aa54-33bafae1ed76"
 deps = ["ArgTools", "SHA"]
 uuid = "a4e569a6-e804-4fa4-b0f3-eef7a1d5b13e"
 
+[[TensorContractionsXD]]
+deps = ["CUDA", "LRUCache", "LinearAlgebra", "Random", "Requires", "StridedTensorXD", "TupleLabXD"]
+git-tree-sha1 = "d5b8bc7e9edc638561c5915d4dc3947e8b618655"
+repo-rev = "master"
+repo-url = "https://github.com/PhysicsCodesLab/TensorContractionsXD.jl"
+uuid = "2200dae6-05f0-40f4-9fe9-6ee0acf43bbd"
+version = "0.1.0"
+
+[[TensorLabXD]]
+deps = ["Combinatorics", "HalfIntegers", "LRUCache", "LinearAlgebra", "Random", "Revise", "SUNRepresentations", "StridedTensorXD", "TensorContractionsXD", "Test", "TestExtras", "TupleLabXD", "WignerSymbols"]
+git-tree-sha1 = "00405901a5c79faac382e6cb90385e13abc83c48"
+repo-rev = "master"
+repo-url = "https://github.com/PhysicsCodesLab/TensorLabXD.jl"
+uuid = "87026d58-cfa7-4eb9-a354-f095ff43cb87"
+version = "0.1.0"
+
 [[TensorOperations]]
 deps = ["CUDA", "LRUCache", "LinearAlgebra", "Requires", "Strided", "TupleTools"]
 git-tree-sha1 = "55029eba79c6caa44d0ad3a1e1dd12c8439eed5d"
 uuid = "6aa20fa7-93e2-5fca-9bc0-fbd0db3c71a2"
 version = "3.2.3"
-
-[[TensorXD]]
-deps = ["Combinatorics", "HalfIntegers", "LRUCache", "LinearAlgebra", "Random", "Revise", "SUNRepresentations", "Strided", "TensorOperations", "Test", "TestExtras", "TupleTools", "WignerSymbols"]
-git-tree-sha1 = "1ed5e81ef90112665b5f7d968a6126d8b19870ae"
-repo-rev = "master"
-repo-url = "/Users/xdong/Dropbox/PhysicsCodesLab/TensorXD"
-uuid = "87026d58-cfa7-4eb9-a354-f095ff43cb87"
-version = "0.1.0"
 
 [[Test]]
 deps = ["InteractiveUtils", "Logging", "Random", "Serialization"]
@@ -363,6 +379,14 @@ deps = ["ExprTools", "Printf"]
 git-tree-sha1 = "209a8326c4f955e2442c07b56029e88bb48299c7"
 uuid = "a759f4b9-e2f1-59dc-863e-4aeb61b1ea8f"
 version = "0.5.12"
+
+[[TupleLabXD]]
+deps = ["Random"]
+git-tree-sha1 = "3242b0eec0949dc645cf0f3f34ba3c9fd67005d2"
+repo-rev = "master"
+repo-url = "https://github.com/PhysicsCodesLab/TupleLabXD.jl"
+uuid = "dd89015c-70e0-43f5-a84b-ae32a3a24356"
+version = "0.1.0"
 
 [[TupleTools]]
 git-tree-sha1 = "3c712976c47707ff893cf6ba4354aa14db1d8938"

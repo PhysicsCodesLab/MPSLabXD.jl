@@ -1,16 +1,16 @@
-using MPSXD
+using MPSLabXD
 using Documenter
 
-DocMeta.setdocmeta!(MPSXD, :DocTestSetup, :(using MPSXD); recursive=true)
+DocMeta.setdocmeta!(MPSLabXD, :DocTestSetup, :(using MPSLabXD); recursive=true)
 
 makedocs(;
-    modules=[MPSXD],
+    modules=[MPSLabXD],
     authors="PhysicsCodesLab",
-    repo="https://github.com/PhysicsCodesLab/MPSXD.jl/blob/{commit}{path}#{line}",
-    sitename="MPSXD.jl",
+    repo="https://github.com/PhysicsCodesLab/MPSLabXD.jl/blob/{commit}{path}#{line}",
+    sitename="MPSLabXD.jl",
     format=Documenter.HTML(;
         prettyurls=get(ENV, "CI", "false") == "true",
-        canonical="https://PhysicsCodesLab.github.io/MPSXD.jl",
+        canonical="https://PhysicsCodesLab.github.io/MPSLabXD.jl",
         assets=String[],
     ),
     pages=[
@@ -19,6 +19,6 @@ makedocs(;
 )
 
 deploydocs(;
-    repo="github.com/PhysicsCodesLab/MPSXD.jl",
+    repo="github.com/PhysicsCodesLab/MPSLabXD.jl",
     devbranch="master",
 )
