@@ -24,6 +24,6 @@ legs.
 Matrix product state is a tensor network that all the lattice site are ordered as a
 one-dimensional chain and each tensor only connects to its left and right nearest number.
 
-![mps_convention](img/mps_convention.svg)
+![mps_convention](figures/mps_convention.svg)
 
 ## [Local tensor](@id ss_localtensor)
