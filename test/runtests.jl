@@ -1,5 +1,6 @@
 using MPSLabXD
 using Test
+using TestExtras
 using TensorLabXD
 
 const TX = TensorLabXD

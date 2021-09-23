@@ -23,7 +23,3 @@ Pages = ["manual/Introduction.md", "manual/MPS.md", "manual/MPO.md",
 "manual/Observables.md", "manual/Examples.md"]
 Depth = 3
 ```
-
-```@autodocs
-Modules = [MPSLabXD]
-```
