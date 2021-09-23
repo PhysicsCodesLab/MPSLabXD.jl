@@ -18,8 +18,6 @@ Jutho Haegeman's package [TensorKit.jl](https://github.com/Jutho/TensorKit.jl).)
 ## Contents of the manual
 
 ```@contents
-Pages = ["manual/Introduction.md", "manual/MPS.md", "manual/MPO.md",
-"manual/TransferMatrix.md", "manual/fDMRG.md", "manual/iDMRG.md",
-"manual/Observables.md", "manual/Examples.md"]
+Pages = ["manual/MPS.md"]
 Depth = 3
 ```
