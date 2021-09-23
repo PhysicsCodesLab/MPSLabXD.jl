@@ -23,6 +23,6 @@ makedocs(;
 )
 
 deploydocs(;
-    repo="github.com/PhysicsCodesLab/MPSLabXD.jl",
+    repo="github.com/PhysicsCodesLab/MPSLabXD.jl.git",
     devbranch="master",
 )

@@ -32,7 +32,7 @@ The basic structure of an MPS is
 We use the conventions that are consistent with that in TensorLabXD.jl.
 
 There are different canonical forms of the MPS: left canonical form, right canonical form,
-site canonical form, Gamma-Lambda form...
+site canonical form, bond canonical form,                  Gamma-Lambda form...
 
 To be able to represent all these different forms under the same structure, we write the
 MPS as
