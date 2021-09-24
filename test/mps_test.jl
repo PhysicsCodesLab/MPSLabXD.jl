@@ -4,7 +4,7 @@ println("------------------------------------")
 
 time_initial = time()
 @timedtestset "local tensors" begin
-    @test 
+    @test 1+1 == 2
 end
 
 time_final = time()

@@ -5,10 +5,6 @@ using TensorLabXD
 
 const TX = TensorLabXD
 
-@testset "MPSLabXD.jl" begin
-    # Write your tests here.
-end
-
 time_initial = time()
 include("mps_test.jl")
 time_final = time()

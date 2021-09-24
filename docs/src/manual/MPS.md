@@ -74,7 +74,21 @@ can be obtained by defining the the site tensors on ``i= 1,...,n-1`` as ``AL^{[i
 the site tensors on ``i = n+1,...,L`` as ``AR^{[i]}``, and the center site tensor as
 ``AC^{[n]}=Λ^{[n]}Γ^{[n]}Λ^{[n+1]}``.
 
+To be convenient in using the canonical forms dynamically in algorithms. We will store
+diagonal values of
+the Λ matrices separately no matter which canonical form we are in. And we label the site
+tensors by left, right, site, and Gamma. If in left, right and site canonical form, the
+bond tensor will be set to identity. If in Gamma-Lambda form, the site tensors will be
+set as Λ matrices. If in non-canonical form, the bond tensors can be any matrices. It is
+useful when we construct the MPS direction from entangled pairs.
+
 Now we discuss how to transform a general MPS to Gamma-Lambda canonical form.
+
+For a finite MPS, it can be done by doing SVD or QR decomposition from one end of the MPS.
+
+For an infinite MPS, it is in principle can be obtained by diagonalizing the transfer
+matrix. A better way is explained in [ref].
+
 
 
 
