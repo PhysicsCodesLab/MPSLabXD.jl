@@ -16,12 +16,12 @@ vector space ``V`` with an arrow pointing in the opposite direction. A tensor ma
 linear map from its domain to codomain. We numerate all the edges attached to a site as
 ``1, ..., N_1+N_2``, and treat the tensor product of the edges ``1,...,N_1`` as the codomain
 of the tensor map and treat the tensor product of the edges ``N_1+1,...,N_1+N_2`` as the
-domain of the tensor map. A tensor is a tensor map which a trivial domain with zero edges or
-an edge corresponds to unit simple object of the tensor category. If an edge connects
-two sites, it represents a contraction between two tensor maps. We also call the edges as
-legs.
+domain of the tensor map. A tensor is a tensor map which a trivial domain with zero edges,
+or equivalently, an edge corresponds to unit simple object of the tensor category. If an
+edge connects two sites, it represents a contraction between two tensor maps. We also call
+the edges as legs.
 
-Matrix product state is a tensor network that all the lattice site are ordered as a
+Matrix product state is a tensor network that all the lattice sites are ordered in a
 one-dimensional chain and each tensor only connects to its left and right nearest
 neighbour.
 
@@ -32,26 +32,40 @@ The basic structure of an MPS is
 We use the conventions that are consistent with that in TensorLabXD.jl.
 
 There are different canonical forms of the MPS: left canonical form, right canonical form,
-site canonical form, bond canonical form,                  Gamma-Lambda form...
+site canonical form, bond canonical form, Gamma-Lambda form... They can be transformed to
+each other.
 
-To be able to represent all these different forms under the same structure, we write the
-MPS as
+All these canonical forms can be obtained easily if we are in the Gamma-Lambda form, thus
+we will store the MPS in Gamma-Lambda form. Thus, we need a function to change a general
+MPS into Gamma-Lambda form. To make the transformation easier, we could give a label to
+denote the form of the input MPS.
+
+The most general form of an MPS is
 
 ![mps_convention](figures/mps_ABconvention.svg)
 
 Since MPSs are usually used to represent the wave functions of quantum many-body systems on
 a lattice and each lattice site hosts a Hilbert space, the tensor ``A^{[i]}`` on that site
 has an open leg which hosts the physical Hilbert space. We call the tensor ``A^{[i]}`` as
-a site tensor, and its open leg as the physical leg. ``A^{[i]}`` also has two legs that
+a site tensor, and its open leg as the physical leg. ``A^{[i]}`` also has two legs that   
 connect to its left and right neighbour. The vector space of these two legs do not have
 direct physical meaning, thus we call them virtual legs or bonds, and the corresponding
-vector spaces as virtual spaces. The tensor ``B^{[i]}`` which does not have a physical leg
+vector spaces as virtual spaces. The tensor ``B^{[i]]`` which does not have a physical leg
 are called a bond tensor. The bond tensors are in principle not necessary, since we can
-always absorb it into ``A^{[i]}`` and returns to the original form of MPS with only site
-tensors. However, we will find later that keeping the bond tensors will make some of the
-algorithms easier.
+always absorb it into ``A^{[i]}`` and returns to the form of MPS with only site tensors.
 
-An MPS can have different boundary conditions
+In Gamma-Lambda form, the bond tensors ``B^{[i]}`` are renamed as the Lambda tensors
+``Λ^{[i]}``.
+
+
+
+
+
+
+Current DMRG algorithms are based on the right canonical forms.
+
+
+
 
 
 ## [Local tensor](@id ss_localtensor)
