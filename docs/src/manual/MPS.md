@@ -36,13 +36,13 @@ site canonical form, bond canonical form, Gamma-Lambda form... They can be trans
 each other.
 
 All these canonical forms can be obtained easily if we are in the Gamma-Lambda form, thus
-we will store the MPS in Gamma-Lambda form. Thus, we need a function to change a general
+we will store the MPS in Gamma-Lambda form. We need a function to change a general
 MPS into Gamma-Lambda form. To make the transformation easier, we could give a label to
 denote the form of the input MPS.
 
 The most general form of an MPS is
 
-![mps_convention](figures/mps_ABconvention.svg)
+![mps_ABconvention](figures/mps_ABconvention.svg)
 
 Since MPSs are usually used to represent the wave functions of quantum many-body systems on
 a lattice and each lattice site hosts a Hilbert space, the tensor ``A^{[i]}`` on that site
@@ -55,14 +55,28 @@ are called a bond tensor. The bond tensors are in principle not necessary, since
 always absorb it into ``A^{[i]}`` and returns to the form of MPS with only site tensors.
 
 In Gamma-Lambda form, the bond tensors ``B^{[i]}`` are renamed as the Lambda tensors
-``Λ^{[i]}``.
+``Λ^{[i]}``, which is a diagonal matrix that stores the Schmidt values of that bond.
+We draw the MPS in Gamma-Lambda as
+
+![mps_GammaLambda](figures/mps_GammaLambda.svg)
+
+If the above MPS is a finite MPS with length ``L=3``, we will have
+``Λ^{[1]}=Λ^{[4]}=1``, since the corresponding bonds are trivial with bond
+dimension ``1``. If we are think about the an infinite MPS which is a translational
+invariant structure with unit cell of length ``3``, we need to identify ``Λ^{[4]}``
+with ``Λ^{[1]}``, but they are not trivial.
+
+Once we obtained the Gamma-Lambda form, the left canonical form can be obtained by
+defining the local site tensor as ``AL^{[i]}= Λ^{[i]}Γ^{[i]}``, and the
+right canonical form can be obtained by defining the local site tensor as
+``AR^{[i]}=Γ^{[i]}Λ^{[i+1]}``. The site canonical form with center site ``n``
+can be obtained by defining the the site tensors on ``i= 1,...,n-1`` as ``AL^{[i]}``,
+the site tensors on ``i = n+1,...,L`` as ``AR^{[i]}``, and the center site tensor as
+``AC^{[n]}=Λ^{[n]}Γ^{[n]}Λ^{[n+1]}``.
+
+Now we discuss how to transform a general MPS to Gamma-Lambda canonical form.
 
 
-
-
-
-
-Current DMRG algorithms are based on the right canonical forms.
 
 
 

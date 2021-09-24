@@ -1,3 +1,9 @@
 [deps]
+LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
+MPSLabXD = "2dcbb0ad-964e-4844-bb06-146bff5b1d26"
+StridedTensorXD = "264d0366-5c21-4846-9aa6-f0da616294d5"
+TensorContractionsXD = "2200dae6-05f0-40f4-9fe9-6ee0acf43bbd"
+TensorLabXD = "87026d58-cfa7-4eb9-a354-f095ff43cb87"
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 TestExtras = "5ed8adda-3752-4e41-b88a-e8b09835ee3a"
+TupleLabXD = "dd89015c-70e0-43f5-a84b-ae32a3a24356"
