@@ -11,6 +11,7 @@ const TC = TensorContractionsXD
 import LinearAlgebra
 
 # Export
+export AbstractMPS, FiniteMPS, InfiniteMPS
 
 # source codes
 include("MPS/mps.jl")
