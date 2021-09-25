@@ -4,6 +4,7 @@ module MPSLabXD
 using TensorLabXD
 
 using TupleLabXD
+using TupleLabXD: StaticLength
 
 using TensorContractionsXD
 const TC = TensorContractionsXD
