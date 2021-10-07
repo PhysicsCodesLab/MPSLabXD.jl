@@ -5,20 +5,20 @@ Matrix product state is a special type of tensor network state.
 The story of a general tensor network starts from a directed graph in space. A directed
 graph is a lattice structure with discrete lattice sites on some spatial points and each
 site has some directed lines attached to it. Each directed line has an arrow on it. Some of
-the lines connect two different sites, while the other lines attach to only one site and
-have an open end.
+the lines connect two different sites, while each of the other lines attaches to only one
+site and has an open end.
 
 Tensor network is a network structure of tensor maps on a directed graph. We associate a
-vector space (or in general, an object of a tensor category) to each of the directed lines
+vector space (or in general, an object of a tensor category) to each directed line
 and a tensor map to each lattice site. The arrow on each line is used to distinguish the  
 vector space and its dual, i.e., the dual of a vector space ``V`` is represented by a leg of
 vector space ``V`` with an arrow pointing in the opposite direction. A tensor map is a
 linear map from its domain to codomain. We numerate all the lines attached to a site as
 ``1, ..., N_1+N_2``, and treat the tensor product of the spaces on lines ``1,...,N_1`` as
-the codomain and treat the tensor product of the spaces on lines ``N_1+1,...,N_1+N_2`` as
+the codomain and that on lines ``N_1+1,...,N_1+N_2`` as
 the domain. A tensor is a tensor map with a trivial domain (``N_2=0``), or equivalently, a
 line corresponding to the unit simple object of the tensor category which can be removed
-or added as at will. If a line connects two sites, it represents a contraction between two
+or added at will. If a line connects two sites, it represents a contraction between two
 tensor maps. We also call the lines as legs or bonds.
 
 Matrix product state is a tensor network that all the lattice sites are ordered in a
@@ -31,14 +31,6 @@ The basic structure of an MPS is
 
 We use the conventions that are consistent with that in TensorLabXD.jl.
 
-There are different canonical forms of the MPS: left canonical form, right canonical form,
-site canonical form, bond canonical form, Gamma-Lambda form... They can be transformed to
-each other.
-
-All these canonical forms can be obtained easily if we are in the Gamma-Lambda form. We need
-a function to change a general MPS into Gamma-Lambda form. To make the transformation
-easier, we could give a label to denote the form of the input MPS.
-
 The most general form of an MPS is
 
 ![mps_ABconvention](figures/mps_ABconvention.svg)
@@ -47,11 +39,19 @@ Since MPSs are usually used to represent the wave functions of quantum many-body
 a lattice and each lattice site hosts a Hilbert space, the tensor ``A^{[i]}`` on that site
 has an open leg which hosts the physical Hilbert space. We call the tensor map ``A^{[i]}``
 as a site tensor and its open leg as the physical leg. ``A^{[i]}`` also has two legs that   
-connect to its left and right neighbour. The vector space of these two legs do not have
+connect to its left and right neighbor. The vector space of these two legs do not have
 direct physical meaning, thus we call them virtual legs, and the corresponding
 vector spaces as virtual spaces. The tensor ``B^{[i]]`` which does not have a physical leg
-is called a bond tensor. The bond tensors are in principle not necessary, since we can
-always absorb it into ``A^{[i]}`` and returns to the form of MPS with only site tensors.
+is called a bond tensor. The existence of bond tensor is convenient when we construct the
+MPS in the projected entangled-pairs way. The bond tensors represent the maximally entangled
+pairs in the virtual space and the site tensors are projections from virtual spaces to
+physical space.
+
+## [Canonical form](@id ss_canonicalform)
+
+There are different canonical forms of the MPS: left canonical form, right canonical form,
+site canonical form, bond canonical form, Gamma-Lambda form... They can be transformed to
+each other.
 
 In Gamma-Lambda form, the bond tensors ``B^{[i]}`` are renamed as the Lambda tensors
 ``Λ^{[i]}``, which is a diagonal matrix that stores the Schmidt values of that bond.
@@ -64,7 +64,7 @@ since the first and last bonds are trivial with bond dimension ``1``. If we are 
 about an infinite MPS which is a translational invariant structure with unit cell of length
 ``3``, we need to identify ``Λ^{[4]}`` with ``Λ^{[1]}`` and they are not trivial.
 
-Once we obtained the Gamma-Lambda form, the left canonical form can be obtained by defining
+Once we obtain the Gamma-Lambda form, the left canonical form can be obtained by defining
 the local site tensor as ``AL^{[i]}= Λ^{[i]}Γ^{[i]}``, and the right canonical form can be
 obtained by defining the local site tensor as ``AR^{[i]}=Γ^{[i]}Λ^{[i+1]}``. The site
 canonical form with central site ``n`` can be obtained by defining the the site tensors on
@@ -73,8 +73,8 @@ the central site tensor as ``AC^{[n]}=Λ^{[n]}Γ^{[n]}Λ^{[n+1]}``.
 
 We will store the Schmidt values of each bond separately no matter which canonical form we
 are in. And we label the site tensors by left, right, site, and Gamma. If in left, right and
-site canonical form, the bond tensors will be set to identity. If in Gamma-Lambda form, the
-bond tensors will be set as Λ matrices whose diagonal elements are the Schmidt values. If in
+site canonical form, the bond tensors are identities. If in Gamma-Lambda form, the
+bond tensors are Λ matrices whose diagonal elements are the Schmidt values. If in
 non-canonical form, the bond tensors can be any matrices. It is useful when we construct the
 MPS from projected entangled pairs.
 
@@ -84,14 +84,3 @@ For a finite MPS, it can be done by doing SVD or QR decomposition from one end o
 
 For an infinite MPS, it is in principle can be obtained by diagonalizing the transfer
 matrix. A better way is explained in [ref].
-
-
-
-
-
-
-
-
-
-
-## [Local tensor](@id ss_localtensor)
