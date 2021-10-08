@@ -2,23 +2,22 @@ module MPSLabXD
 
 # Imports
 using TensorLabXD
-const TX= TensorLabXD
-import TensorLabXD: field, spacetype, sectortype
+const TX = TensorLabXD
+
 
 using TupleLabXD
 const TU = TupleLabXD
-using TupleLabXD: StaticLength
 
 using TensorContractionsXD
 const TC = TensorContractionsXD
 
-import LinearAlgebra
+using LinearAlgebra
 
 # Export
 export AbstractMPS, FiniteMPS
 export field, spacetype, sectortype
 
-export make_right_canonical
+export make_right_canonical,norm
 # source codes
 include("MPS/abstractmps.jl")
 include("MPS/finitemps.jl")

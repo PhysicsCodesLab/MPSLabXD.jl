@@ -29,10 +29,22 @@ function make_right_canonical(mps::FiniteMPS)
         @tensor A[a,b;c] = R[a,d]*mps.Ts[i+1][d,b;c]
         mps.Ts[i+1] = A
     end
-    mps_norm = LinearAlgebra.tr(mps.Ts[L]'*mps.Ts[L])
+    mps_norm = tr(mps.Ts[L]'*mps.Ts[L])
     mps.Ts[L] = mps.Ts[L]/sqrt(mps_norm)
     mps.canonical_form[1] = :right
     return
+end
+
+function LinearAlgebra.norm(mps::FiniteMPS)
+    A = mps.Ts[1]'*mps.Ts[1]
+    for i in 2:length(mps.Ts)
+        A_tmp1 = TensorMap(undef,codomain(A)*codomain(mps.Ts[i],2),domain(mps.Ts[i]))
+        @tensor A_tmp1[d,b;c] = A[d;a]*mps.Ts[i][a,b;c]
+        A_tmp2 = TensorMap(undef,domain(mps.Ts[i]),domain(mps.Ts[i]))
+        @tensor A_tmp2[d;c] =  conj(mps.Ts[i][a,b;d])*A_tmp1[a,b;c]
+        A = A_tmp2
+    end
+    return tr(A)
 end
 
 function leftcanonical(psi::FiniteMPS)

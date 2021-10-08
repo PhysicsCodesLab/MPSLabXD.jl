@@ -18,7 +18,10 @@ s = [ntuple(i -> [1.0], L)...];
 
 @timedtestset "finite mps" begin
     mps = FiniteMPS{SU₂Space}([A1,A2,A2,A2,A2,A3],s,[:non_canonical]);
-    @test length(mps) == L
+    make_right_canonical(mps);
+    for i in 1:L
+        @test mps.Ts[i]'*mps.Ts[i] ≈ isomorphism(domain(mps.Ts[i]),domain(mps.Ts[i]))
+    end
 end
 
 @timedtestset "infinite mps" begin
