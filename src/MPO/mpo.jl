@@ -1,7 +1,12 @@
 #mpo.jl
-struct ModelMPO{S<:EuclideanSpace} <: AbstractMPS{S}
+"""
+struct MPO{S<:EuclideanSpace} <: AbstractMPS{S}
+
+This type include the Hamiltonian and also other operators which are in the form of MPO.
+"""
+struct MPO{S<:EuclideanSpace} <: AbstractMPS{S}
     Ws::Vector{<:AbstractTensorMap{S, 2, 2}}
-    function ModelMPO{S}(Ws::Vector{<:AbstractTensorMap{S, 2, 2}}) where {S<:EuclideanSpace}
+    function MPO{S}(Ws::Vector{<:AbstractTensorMap{S, 2, 2}}) where {S<:EuclideanSpace}
         new(Ws)
     end
 end
@@ -27,5 +32,11 @@ function TransverseFieldIsing(N::Int)
     data[3,:,:,2] = sigmax
     data[3,:,:,3] = Id
     W = TensorMap(data, W_virtual ⊗ W_physical, W_physical ⊗ W_virtual)
-    return ModelMPO{ComplexSpace}(append!([[W] for i in 1:N]...))
+    return MPO{ComplexSpace}(append!([[W] for i in 1:N]...))
+end
+
+"""
+    function Heisenberg(N::Int)
+"""
+function Heisenberg(N::Int)
 end
