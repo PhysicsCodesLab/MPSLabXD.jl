@@ -14,14 +14,26 @@ A1 = TensorMap(randn, V_boundary*V_physical, V_virtual);
 A2 = TensorMap(randn,V_virtual*V_physical,V_virtual);
 A3 = TensorMap(randn,V_virtual*V_physical,V_boundary);
 L = 6;
-s = [ntuple(i -> [1.0], L)...];
+s = [[1.0] for i in 1:L];
 
 @timedtestset "finite mps" begin
-    mps = FiniteMPS{SU₂Space}([A1,A2,A2,A2,A2,A3],s,[:non_canonical]);
-    make_right_canonical(mps);
+    mps1 = FiniteMPS{SU₂Space}([A1,A2,A2,A2,A2,A3],s,[:non_canonical]);
+    @test field(mps1) == ℂ
+    @test spacetype(mps1) == SU₂Space == Rep[SU₂]
+    @test sectortype(mps1) == SU2Irrep == Irrep[SU₂]
+    make_left_canonical(mps1);
     for i in 1:L
-        @test mps.Ts[i]'*mps.Ts[i] ≈ isomorphism(domain(mps.Ts[i]),domain(mps.Ts[i]))
+        @test mps1.Ts[i]'*mps1.Ts[i] ≈ isomorphism(domain(mps1.Ts[i]),domain(mps1.Ts[i]))
     end
+    @test norm(mps1) ≈ 1.0
+    mps2 = FiniteMPS{SU₂Space}([A1,A2,A2,A2,A2,A2,A2,A3],s,[:non_canonical]);
+    make_right_canonical(mps2);
+    for i in 1:L
+        T_tmp = TensorMap(undef,codomain(mps2.Ts[i],1),codomain(mps2.Ts[i],1))
+        @tensor T_tmp[a;d] = mps2.Ts[i][a,b;c]*conj(mps2.Ts[i][d,b;c])
+        @test T_tmp ≈ isomorphism(codomain(mps2.Ts[i],1),codomain(mps2.Ts[i],1))
+    end
+    @test norm(mps2) ≈ 1.0
 end
 
 @timedtestset "infinite mps" begin

@@ -1,15 +1,16 @@
 #finitemps.jl
-struct FiniteMPS{S<:IndexSpace} <: AbstractMPS{S}
+struct FiniteMPS{S<:EuclideanSpace} <: AbstractMPS{S}
     Ts::Vector{<:AbstractTensorMap{S, 2, 1}}
     Ss::Vector{Vector{Float64}}
     canonical_form::Vector{Symbol}
     function FiniteMPS{S}(Ts::Vector{<:AbstractTensorMap{S, 2, 1}},
                             Ss::Vector{Vector{Float64}},
-                            canonical_form::Vector{Symbol}) where {S<:IndexSpace}
+                            canonical_form::Vector{Symbol}) where {S<:EuclideanSpace}
         (dim(space(Ts[1],1)) == 1 && dim(space(Ts[end],3)) == 1) ||
             error("The left bond of the first tensor and the right bonnd of the
                     last tensor should have dimension 1 for finite MPS!")
-        canonical_form[1] ∈ [:left,:right,:site,:bond,:Gamma,:non_canonical] ||
+        canonical_form[1] ∈ [:left_canonical,:right_canonical,:site_canonical,
+                                :bond_canonical,:GammaLambda_canonical,:non_canonical] ||
             error("There is no such canonical form!")
         new(Ts,Ss,canonical_form)
     end
@@ -18,20 +19,35 @@ end
 FiniteMPS(Ts,Ss,canonical_form) =
     FiniteMPS{spacetype(Ts[1])}(Ts, Ss, canonical_form)
 
-
-function make_right_canonical(mps::FiniteMPS)
+function make_left_canonical(mps::FiniteMPS)
     L = length(mps.Ts)
     for i in 1:L-1
         Q, R = leftorth(mps.Ts[i])
         mps.Ts[i] = Q
-        A = TensorMap(undef,codomain(R)*codomain(mps.Ts[i+1],2),
-                            domain(mps.Ts[i+1]))
-        @tensor A[a,b;c] = R[a,d]*mps.Ts[i+1][d,b;c]
-        mps.Ts[i+1] = A
+        A_tmp = TensorMap(undef, codomain(R)*codomain(mps.Ts[i+1],2), domain(mps.Ts[i+1]))
+        @tensor A_tmp[a,b;c] = R[a,d]*mps.Ts[i+1][d,b;c]
+        mps.Ts[i+1] = A_tmp
     end
     mps_norm = tr(mps.Ts[L]'*mps.Ts[L])
     mps.Ts[L] = mps.Ts[L]/sqrt(mps_norm)
-    mps.canonical_form[1] = :right
+    mps.canonical_form[1] = :left_canonical
+    return
+end
+
+function make_right_canonical(mps::FiniteMPS)
+    L = length(mps.Ts)
+    for i in L:-1:2
+        L, Q = rightorth(mps.Ts[i], (1,), (2,3))
+        mps.Ts[i] = permute(Q,(1,2),(3,))
+        A_tmp = TensorMap(undef, codomain(mps.Ts[i-1]), domain(L))
+        @tensor A_tmp[a,b;d] = mps.Ts[i-1][a,b;c]*L[c;d]
+        mps.Ts[i-1] = A_tmp
+    end
+    T_tmp = TensorMap(undef, codomain(mps.Ts[1],1),codomain(mps.Ts[1],1))
+    @tensor T_tmp[a;d] := mps.Ts[1][a,b;c]*conj(mps.Ts[1][d,b;c])
+    mps_norm = tr(T_tmp)
+    mps.Ts[1] = mps.Ts[1]/sqrt(mps_norm)
+    mps.canonical_form[1] = :right_canonial
     return
 end
 
@@ -47,8 +63,7 @@ function LinearAlgebra.norm(mps::FiniteMPS)
     return tr(A)
 end
 
-function leftcanonical(psi::FiniteMPS)
-end
+
 
 function GammaLamma_canonical(psi::FiniteMPS)
 

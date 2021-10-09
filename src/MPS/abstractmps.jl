@@ -1,31 +1,31 @@
 # mps.jl
-abstract type AbstractMPS{S<:IndexSpace} end
+abstract type AbstractMPS{S<:EuclideanSpace} end
 
 """
-    field(::Type{<:AbstractMPS{S}}) where {S<:IndexSpace}
+    field(::Type{<:AbstractMPS{S}}) where {S<:EuclideanSpace}
     field(mps::AbstractMPS)
 
 Return the field type over which an MPS instance or type is defined.
 """
-TX.field(::Type{<:AbstractMPS{S}}) where {S<:IndexSpace} = field(S)
+TX.field(::Type{<:AbstractMPS{S}}) where {S<:EuclideanSpace} = field(S)
 TX.field(mps::AbstractMPS) = field(typeof(mps))
 
 """
-    spacetype(::Type{<:AbstractMPS{S}}) where {S<:IndexSpace}
+    spacetype(::Type{<:AbstractMPS{S}}) where {S<:EuclideanSpace}
     spacetype(mps::AbstractMPS)
 
 Return the ElementarySpace type associated to an MPS instance or type.
 """
-TX.spacetype(::Type{<:AbstractMPS{S}}) where {S<:IndexSpace} = S
+TX.spacetype(::Type{<:AbstractMPS{S}}) where {S<:EuclideanSpace} = S
 TX.spacetype(mps::AbstractMPS) = spacetype(typeof(mps))
 
 """
-    sectortype(::Type{<:AbstractMPS{S}}) where {S<:IndexSpace}
+    sectortype(::Type{<:AbstractMPS{S}}) where {S<:EuclideanSpace}
     sectortype(mps::AbstractMPS) -> Type{<:Sector}
 
 Return the type of sector over which the MPS instance or type is defined.
 """
-TX.sectortype(::Type{<:AbstractMPS{S}}) where {S<:IndexSpace} = sectortype(S)
+TX.sectortype(::Type{<:AbstractMPS{S}}) where {S<:EuclideanSpace} = sectortype(S)
 TX.sectortype(mps::AbstractMPS) = sectortype(typeof(mps))
 
 # Base.getindex(mps::AbstractMPS, i::Integer) = mps.sitetensors[i]
