@@ -11,7 +11,7 @@ makedocs(;
     ),
     pages=[
         "Home" => "index.md",
-        "Manual" => ["manual/MPS.md"],
+        "Manual" => ["manual/MPS.md","manual/fDMRG.md","manual/MPO.md"],
         "Index" => ["index/index.md"]
     ],
 )
