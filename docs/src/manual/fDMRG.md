@@ -25,10 +25,27 @@ E[A,A^{†},λ] = ⟨ψ(A)|H|ψ(A)⟩ - λ(⟨ψ(A)|ψ(A)⟩-1)
 \end{aligned}
 ```
 
-The minimal point satisfy
+The minimal energy point satisfy the saddle point conditions
 ```math
 \begin{aligned}
-&\frac{∂E[A,A^{†},λ]}{∂A^{s_i}_{α_iβ_i}} = \frac{∂E[A,A^{†},λ]}{∂(A^{†})^{s_i}_{α_iβ_i}}=0
+&\frac{∂E[A,A^{†},λ]}{∂A^{s_i}_{α_iβ_i}} = \frac{∂E[A,A^{†},λ]}{∂(A^{†})^{s_i}_{α_iβ_i}}=0\\
 &\frac{∂E[A,A^{†},λ]}{∂λ} = 0
 \end{aligned}
 ```
+
+In the site canonical form, this can be done very easily:
+
+![mps_convention](figures/DMRG_Ederivative.svg)
+
+It becomes an eigenvalue equation of an effective Hamiltonian:
+```math
+\begin{aligned}
+H_{\mathrm{eff}}_{(s_iα_iβ_i),(s′_iα′_iβ′_i)}A^{s′_i}_{α′_iβ′_i} = λ A^{s_i}_{α_iβ_i}
+\end{aligned}
+```
+
+The saddle conditions can be satisfied if λ is an eigenvalue of ``H_{\mathrm{eff}}`` and ``A`` is the corresponding eigenvector which is normalized as ``tr(A^{†}A)=1`` (we can check that with this normalization the wave function is normalized and the partial derivative to λ of energy functional is 0).
+
+We can also see that when the wave function is normalized ``E=A^{†}H_{eff}A = λ``, thus the minimal value of λ corresponds to the ground state energy.
+
+We repeat this process for every site and swipe forth and back until the energy converges. This algorithm is called the single-site DMRG.

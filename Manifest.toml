@@ -133,6 +133,12 @@ git-tree-sha1 = "e273807f38074f033d94207a201e6e827d8417db"
 uuid = "aa1ae85d-cabe-5617-a682-6adf51b2e16a"
 version = "0.8.21"
 
+[[KrylovKit]]
+deps = ["LinearAlgebra", "Printf"]
+git-tree-sha1 = "0328ad9966ae29ccefb4e1b9bfd8c8867e4360df"
+uuid = "0b1a1467-8014-51b9-945f-bf0ae24f4b77"
+version = "0.5.3"
+
 [[LLVM]]
 deps = ["CEnum", "LLVMExtra_jll", "Libdl", "Printf", "Unicode"]
 git-tree-sha1 = "46092047ca4edc10720ecab437c42283cd7c44f3"

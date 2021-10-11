@@ -11,6 +11,8 @@ const TU = TupleLabXD
 using TensorContractionsXD
 const TC = TensorContractionsXD
 
+using KrylovKit
+
 using LinearAlgebra
 
 # Export

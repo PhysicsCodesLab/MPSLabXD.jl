@@ -28,6 +28,26 @@ Return the type of sector over which the MPS instance or type is defined.
 TX.sectortype(::Type{<:AbstractMPS{S}}) where {S<:EuclideanSpace} = sectortype(S)
 TX.sectortype(mps::AbstractMPS) = sectortype(typeof(mps))
 
+"""
+    get_chi(mps::AbstractMPS)
+
+Return the bond dimensions of the MPS on bonds 1:N+1.
+"""
+function get_chi(mps::AbstractMPS)
+    chi_list = append!([dim(codomain(mps.Ts[i],1)) for i in 1:length(mps.Ts)],
+                        [dim(domain(mps.Ts[end]))])
+    return chi_list
+end
+
+"""
+    entanglement_entropy(mps::AbstractMPS)
+"""
+function entanglement_entropy(mps::AbstractMPS)
+    S_list = [-sum([(mps.Ss[i][j])^2*log((mps.Ss[i][j])^2) for j in 1:length(mps.Ss[i])])
+                    for i in 1:length(mps.Ss)]
+    return S_list
+end
+
 # Base.getindex(mps::AbstractMPS, i::Integer) = mps.sitetensors[i]
 #
 # @inline function Base.setindex!(mps::AbstractMPS, v, indices::Vararg{Int})
