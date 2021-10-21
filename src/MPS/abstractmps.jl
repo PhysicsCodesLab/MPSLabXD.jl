@@ -1,4 +1,9 @@
 # mps.jl
+"""
+    abstract type AbstractMPS{S<:EuclideanSpace} 
+
+The abstract type of all 1D tensor networks, includes 1D MPS and 1D MPO.
+"""
 abstract type AbstractMPS{S<:EuclideanSpace} end
 
 """
