@@ -1,18 +1,18 @@
-#finiteDMRG.jl
-function finiteDMRG(mps::FiniteMPS, mpo::MPO,
-                        DMRG_parameters::Dict, truncation_parameters::Dict)
+# finiteDMRG.jl
+function finiteDMRG(mps::FiniteMPS, mpo::MPO, final_position::Int,
+                    DMRG_parameters::Dict, truncation_parameters::Dict)
     L = length(mps.Ts)
 
     if mps.canonical_form[1] != :right_canonical
         make_right_canonical(mps)
     end
 
-    sweep_max = get(DMRG_parameters,"max_sweep",50)
-    sweep_min = get(DMRG_parameters,"min_sweep",5)
+    max_sweep = get(DMRG_parameters,"max_sweep",50)
+    min_sweep = get(DMRG_parameters,"min_sweep",5)
     max_E_error = get(DMRG_parameters,"max_E_error",10^-8)
     max_S_error = get(DMRG_parameters,"max_S_error",10^-3)
 
-    env = initialize_FiniteEnv(mps,mpo)
+    env = initialize_FiniteEnvironment(mps,mpo,final_position)
 
     println("Sweep 1")
     E = one_sweep(mps::FiniteMPS,mpo::MPO,env::FiniteEnvironment,

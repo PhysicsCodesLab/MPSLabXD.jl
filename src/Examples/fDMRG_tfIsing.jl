@@ -16,8 +16,8 @@ make_right_canonical(mps)
 
 # step 2: Define the model Hamiltonian as mpo
 J = 1.0
-g = 1.5
-mpo = TransverseFieldIsing(L,J,g)
+g = 1.0
+mpo, final_position = TransverseFieldIsing(L,J,g)
 
 # step 2: Do finite DMRG
 DMRG_parameters = Dict("max_E_error"=>10^-8,
@@ -29,4 +29,4 @@ truncation_parameters = Dict("chi_max"=>100,
                              "svd_min"=>10^(-10),
                              "truncation_error"=>10^-8)
 
-finiteDMRG(mps, mpo, DMRG_parameters, truncation_parameters)
+finiteDMRG(mps, mpo, final_position, DMRG_parameters, truncation_parameters)

@@ -33,7 +33,7 @@ function make_left_canonical(mps::FiniteMPS)
         Q, R = leftorth(mps.Ts[i])
         mps.Ts[i] = Q
         A_tmp = TensorMap(undef, codomain(R)*codomain(mps.Ts[i+1],2), domain(mps.Ts[i+1]))
-        @tensor A_tmp[a,b;c] = R[a,d]*mps.Ts[i+1][d,b;c]
+        @tensor A_tmp[a b;c] = R[a d]*mps.Ts[i+1][d b;c]
         mps.Ts[i+1] = A_tmp
     end
     mps_norm = tr(mps.Ts[L]'*mps.Ts[L])
@@ -53,14 +53,14 @@ function make_right_canonical(mps::FiniteMPS)
         L, Q = rightorth(mps.Ts[i], (1,), (2,3))
         mps.Ts[i] = permute(Q,(1,2),(3,))
         A_tmp = TensorMap(undef, codomain(mps.Ts[i-1]), domain(L))
-        @tensor A_tmp[a,b;d] = mps.Ts[i-1][a,b;c]*L[c;d]
+        @tensor A_tmp[a b;d] = mps.Ts[i-1][a b;c]*L[c;d]
         mps.Ts[i-1] = A_tmp
     end
     T_tmp = TensorMap(undef, codomain(mps.Ts[1],1),codomain(mps.Ts[1],1))
-    @tensor T_tmp[a;d] := mps.Ts[1][a,b;c]*conj(mps.Ts[1][d,b;c])
+    @tensor T_tmp[a;d] := mps.Ts[1][a b;c]*conj(mps.Ts[1][d b;c])
     mps_norm = tr(T_tmp)
     mps.Ts[1] = mps.Ts[1]/sqrt(mps_norm)
-    mps.canonical_form[1] = :right_canonial
+    mps.canonical_form[1] = :right_canonical
     return
 end
 
@@ -68,9 +68,9 @@ function LinearAlgebra.norm(mps::FiniteMPS)
     A = mps.Ts[1]'*mps.Ts[1]
     for i in 2:length(mps.Ts)
         A_tmp1 = TensorMap(undef,codomain(A)*codomain(mps.Ts[i],2),domain(mps.Ts[i]))
-        @tensor A_tmp1[d,b;c] = A[d;a]*mps.Ts[i][a,b;c]
+        @tensor A_tmp1[d b;c] = A[d;a]*mps.Ts[i][a b;c]
         A_tmp2 = TensorMap(undef,domain(mps.Ts[i]),domain(mps.Ts[i]))
-        @tensor A_tmp2[d;c] =  conj(mps.Ts[i][a,b;d])*A_tmp1[a,b;c]
+        @tensor A_tmp2[d;c] =  conj(mps.Ts[i][a b;d])*A_tmp1[a b;c]
         A = A_tmp2
     end
     return tr(A)

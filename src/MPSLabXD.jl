@@ -22,11 +22,13 @@ export field, spacetype, sectortype
 export make_right_canonical, make_left_canonical, norm
 
 export MPO, TransverseFieldIsing
+
+export FiniteEnvironment, initialize_FiniteEnvironment, update_left_env, update_right_env
 # source codes
 include("MPS/abstractmps.jl")
 include("MPS/finitemps.jl")
 include("MPO/mpo.jl")
-#include("Environment/finiteEnvironment.jl")
+include("Environment/finiteEnvironment.jl")
 #include("GroundState/finiteDMRG.jl")
 
 
