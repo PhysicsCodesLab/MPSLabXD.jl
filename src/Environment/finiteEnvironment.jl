@@ -43,13 +43,15 @@ function initialize_FiniteEnvironment(mps::FiniteMPS, mpo::MPO, final_position::
 end
 
 function update_left_env(i::Int, mps::FiniteMPS, mpo::MPO, env::FiniteEnvironment)
-    @tensor A_tmp1[c d;b e] := env.left_env[i-1][c;a b]*mps.Ts[i-1][a d e]
+    @tensor A_tmp1[c d;b e] := env.left_env[i-1][c;a b]*mps.Ts[i-1][a d; e]
     @tensor A_tmp2[a e;d f] := A_tmp1[a b;c d]*mpo.Ws[i-1][c e;b f]
-    @tensor env.left_env[i][e;c d] = conj(mps.Ts[i-1][a b;e])*A_tmp2[a b;c d]
+    @tensor A_tmp3[e;c d] := conj(mps.Ts[i-1][a b;e])*A_tmp2[a b;c d]
+    env.left_env[i] = A_tmp3
 end
 
 function update_right_env(i::Int, mps::FiniteMPS, mpo::MPO, env::FiniteEnvironment)
     @tensor A_tmp1[d e b;c] := mps.Ts[i][d e;a]*env.right_env[i+1][a b;c]
     @tensor A_tmp2[a e f;d] := mpo.Ws[i][e f;b c]*A_tmp1[a b c;d]
-    @tensor env.right_env[i][a b;e] = A_tmp2[a b c;d]*conj(mps.Ts[i][e c;d])
+    @tensor A_tmp3[a b;e] := A_tmp2[a b c;d]*conj(mps.Ts[i][e c;d])
+    env.right_env[i] = A_tmp3
 end

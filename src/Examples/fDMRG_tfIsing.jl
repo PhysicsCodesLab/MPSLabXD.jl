@@ -9,14 +9,16 @@ T_left_boundary = TensorMap(randn, V_boundary*V_physical, V_virtual)
 T_bulk = TensorMap(randn,V_virtual*V_physical,V_virtual)
 T_right_boundary = TensorMap(randn,V_virtual*V_physical,V_boundary)
 L = 10
-s = [nothing for i in 1:L]
+s = append!([isomorphism(V_boundary,V_boundary)],
+            [isomorphism(V_virtual,V_virtual) for i in 1:L-1],
+            [isomorphism(V_boundary,V_boundary)])
 mps = FiniteMPS(append!([T_left_boundary],[T_bulk for i in 1:L-2],
                             [T_right_boundary]),s,[:non_canonical])
 make_right_canonical(mps)
 
 # step 2: Define the model Hamiltonian as mpo
 J = 1.0
-g = 1.0
+g = 1.3
 mpo, final_position = TransverseFieldIsing(L,J,g)
 
 # step 2: Do finite DMRG
@@ -26,7 +28,7 @@ DMRG_parameters = Dict("max_E_error"=>10^-8,
                        "min_sweep"=>5)
 
 truncation_parameters = Dict("chi_max"=>100,
-                             "svd_min"=>10^(-10),
-                             "truncation_error"=>10^-8)
+                             "svd_min"=>10^-15,
+                             "truncation_error"=>10^-15)
 
 finiteDMRG(mps, mpo, final_position, DMRG_parameters, truncation_parameters)

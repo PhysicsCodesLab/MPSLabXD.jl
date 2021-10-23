@@ -1,6 +1,6 @@
 # mps.jl
 """
-    abstract type AbstractMPS{S<:EuclideanSpace} 
+    abstract type AbstractMPS{S<:EuclideanSpace}
 
 The abstract type of all 1D tensor networks, includes 1D MPS and 1D MPO.
 """
@@ -48,8 +48,15 @@ end
     entanglement_entropy(mps::AbstractMPS)
 """
 function entanglement_entropy(mps::AbstractMPS)
-    S_list = [-sum([(mps.Ss[i][j])^2*log((mps.Ss[i][j])^2) for j in 1:length(mps.Ss[i])])
-                    for i in 1:length(mps.Ss)]
+    S_list = [ ]
+    for i in 1:length(mps.Ss)
+        entropy = 0.0
+        for c in blocksectors(mps.Ss[i])
+            t = block(mps.Ss[i],c)
+            entropy += -sum([(t[j,j])^2*log((t[j,j])^2) for j in 1:size(t,1)])
+        end
+        push!(S_list,entropy)
+    end
     return S_list
 end
 

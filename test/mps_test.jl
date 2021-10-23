@@ -7,6 +7,7 @@ time_initial = time()
 using Revise
 using TensorLabXD
 using MPSLabXD
+using KrylovKit
 V_virtual = SU₂Space(0=>5,1/2=>5,1=>5);
 V_physical = SU₂Space(1/2=>1);
 V_boundary = SU₂Space(0=>1);

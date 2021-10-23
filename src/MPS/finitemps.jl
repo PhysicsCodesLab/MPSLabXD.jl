@@ -1,10 +1,10 @@
 #finitemps.jl
 struct FiniteMPS{S<:EuclideanSpace} <: AbstractMPS{S}
-    Ts::Vector{<:AbstractTensorMap{S, 2, 1}}
-    Ss::Vector{<:Union{AbstractTensorMap{S,1,1},Nothing}}
+    Ts::Vector{<:AbstractTensorMap{S,2,1}}
+    Ss::Vector{<:AbstractTensorMap{S,1,1}}
     canonical_form::Vector{Symbol}
-    function FiniteMPS{S}(Ts::Vector{<:AbstractTensorMap{S, 2, 1}},
-                            Ss::Vector{<:Union{AbstractTensorMap{S,1,1},Nothing}},
+    function FiniteMPS{S}(Ts::Vector{<:AbstractTensorMap{S,2,1}},
+                            Ss::Vector{<:AbstractTensorMap{S,1,1}},
                             canonical_form::Vector{Symbol}) where {S<:EuclideanSpace}
         (dim(space(Ts[1],1)) == 1 && dim(space(Ts[end],3)) == 1) ||
             error("The left bond of the first tensor and the right bonnd of the
@@ -23,12 +23,6 @@ end
 FiniteMPS(Ts,Ss,canonical_form) = FiniteMPS{spacetype(Ts[1])}(Ts, Ss, canonical_form)
 
 function make_left_canonical(mps::FiniteMPS)
-    if mps.canonical_form[1] == :GammaLambda_canonical
-        error("not implemented yet!")
-    end
-    if mps.canonical_form[1] == :non_canonical && typeof(mps.Ss) != Vector{Nothing}
-        error("not implemented yet!")
-    end
     for i in 1:length(mps.Ts)-1
         Q, R = leftorth(mps.Ts[i])
         mps.Ts[i] = Q
@@ -43,12 +37,6 @@ function make_left_canonical(mps::FiniteMPS)
 end
 
 function make_right_canonical(mps::FiniteMPS)
-    if mps.canonical_form[1] == :GammaLambda_canonical
-        error("not implemented yet!")
-    end
-    if mps.canonical_form[1] == :non_canonical && typeof(mps.Ss) != Vector{Nothing}
-        error("not implemented yet!")
-    end
     for i in length(mps.Ts):-1:2
         L, Q = rightorth(mps.Ts[i], (1,), (2,3))
         mps.Ts[i] = permute(Q,(1,2),(3,))
