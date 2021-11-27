@@ -68,7 +68,6 @@ function LinearAlgebra.norm(mps::FiniteMPS)
 end
 
 function make_site_canonical(psi::FiniteMPS, n::Int)
-
 end
 
 function bond_canonical(psi::FiniteMPS, b::Int)
