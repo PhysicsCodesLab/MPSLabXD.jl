@@ -5,8 +5,10 @@ Matrix product state is a special type of tensor network state.
 The story of a general tensor network starts from a directed graph in space. A directed
 graph is a lattice structure with discrete lattice sites on some spatial points and each
 site has some directed lines attached to it. Each directed line has an arrow on it. Some of
-the lines connect two different sites, while each of the other lines attaches to only one
-site and has an open end.
+the lines connect two different sites directly, while each of the other lines attach to
+only one site and has an open end.
+
+![mps_graph](figures/mps_graph.svg)
 
 Tensor network is a network structure of tensor maps on a directed graph. We associate a
 vector space (or in general, an object of a tensor category) to each directed line
@@ -23,35 +25,41 @@ tensor maps. We also call the lines as legs or bonds.
 
 Matrix product state is a tensor network that all the lattice sites are ordered in a
 one-dimensional chain and each tensor only connects to its left and right nearest
-neighbour.
+neighbors.
 
-The basic structure of an MPS is
+The **basic** form of an MPS is
 
 ![mps_convention](figures/mps_convention.svg)
 
-We use the conventions that are consistent with that in TensorLabXD.jl.
+We use the conventions that are consistent with that in TensorLabXD.jl as shown in (b) and
+(c) of the above figure.
 
-The most general form of an MPS is
+The **most general form** of an MPS is
 
 ![mps_ABconvention](figures/mps_ABconvention.svg)
 
 Since MPSs are usually used to represent the wave functions of quantum many-body systems on
-a lattice and each lattice site hosts a Hilbert space, the tensor ``A^{[i]}`` on that site
+a lattice and each lattice site hosts a Hilbert space, the tensor ``A^{[i]}`` on that
+lattice site
 has an open leg which hosts the physical Hilbert space. We call the tensor map ``A^{[i]}``
 as a site tensor and its open leg as the physical leg. ``A^{[i]}`` also has two legs that   
-connect to its left and right neighbor. The vector space of these two legs do not have
+connect to its left and right neighbors. The vector space of these two legs do not have
 direct physical meaning, thus we call them virtual legs, and the corresponding
-vector spaces as virtual spaces. The tensor ``B^{[i]]`` which does not have a physical leg
+vector spaces as virtual spaces. The tensor ``B^{[i]]``, which does not have a physical leg,
 is called a bond tensor. The existence of bond tensor is convenient when we construct the
 MPS in the projected entangled-pairs way. The bond tensors represent the maximally entangled
 pairs in the virtual space and the site tensors are projections from virtual spaces to
-physical space.
+the physical space.
+
+## [fundamental theorem of MPS](@id ss_fundamentaltheorem)
+
 
 ## [Canonical form](@id ss_canonicalform)
 
 There are different canonical forms of the MPS: left canonical form, right canonical form,
 site canonical form, bond canonical form, Gamma-Lambda form... They can be transformed to
 each other.
+
 
 In Gamma-Lambda form, the bond tensors ``B^{[i]}`` are renamed as the Lambda tensors
 ``Λ^{[i]}``, which is a diagonal matrix that stores the Schmidt values of that bond.

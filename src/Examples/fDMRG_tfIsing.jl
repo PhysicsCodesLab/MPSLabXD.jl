@@ -1,6 +1,10 @@
 # fDMRG_tfIsing.jl
 # Using finite DMRG to calculate the ground state energy of TransverseFieldIsing model.
 
+using TensorLabXD
+using MPSLabXD
+using KrylovKit
+
 # Step 1: Initialize the MPS
 V_virtual = ℤ₂Space(0=>5,1=>5)
 V_physical = ℤ₂Space(0=>1,1=>1)
@@ -18,7 +22,7 @@ make_right_canonical(mps)
 
 # step 2: Define the model Hamiltonian as mpo
 J = 1.0
-g = 1.3
+g = 0.0
 mpo, final_position = TransverseFieldIsing(L,J,g)
 
 # step 2: Do finite DMRG

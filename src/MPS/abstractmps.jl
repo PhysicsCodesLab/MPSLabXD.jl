@@ -60,6 +60,13 @@ function entanglement_entropy(mps::AbstractMPS)
     return S_list
 end
 
+"""
+    expectation_value_single_site(mps::AbstractMPS)
+"""
+function expectation_value_single_site(mps::AbstractMPS)
+
+end
+
 # Base.getindex(mps::AbstractMPS, i::Integer) = mps.sitetensors[i]
 #
 # @inline function Base.setindex!(mps::AbstractMPS, v, indices::Vararg{Int})

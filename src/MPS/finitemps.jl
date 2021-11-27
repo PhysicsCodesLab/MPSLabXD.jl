@@ -23,6 +23,9 @@ end
 FiniteMPS(Ts,Ss,canonical_form) = FiniteMPS{spacetype(Ts[1])}(Ts, Ss, canonical_form)
 
 function make_left_canonical(mps::FiniteMPS)
+    if MPS.canonical_form[1] == :left_canonical
+        return
+    if MPS.canonical_form[1] ∈ [:right_canonical, ]
     for i in 1:length(mps.Ts)-1
         Q, R = leftorth(mps.Ts[i])
         mps.Ts[i] = Q
@@ -64,7 +67,8 @@ function LinearAlgebra.norm(mps::FiniteMPS)
     return tr(A)
 end
 
-function site_canonical(psi::FiniteMPS, n::Int)
+function make_site_canonical(psi::FiniteMPS, n::Int)
+
 end
 
 function bond_canonical(psi::FiniteMPS, b::Int)
