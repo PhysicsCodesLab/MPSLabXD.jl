@@ -97,4 +97,4 @@ matrix. A better way is explained in [ref].
 
 ## Bibliography
 
-[Frank1]: Ignacio Cirac, David Perez-Garcia, Norbert Schuch, Frank Verstraete, Matrix Product States and Projected Entangled Pair States: Concepts, Symmetries, and Theorems, arXiv:2011.12127v2
+[^Frank1]: Ignacio Cirac, David Perez-Garcia, Norbert Schuch, Frank Verstraete, Matrix Product States and Projected Entangled Pair States: Concepts, Symmetries, and Theorems, arXiv:2011.12127v2
