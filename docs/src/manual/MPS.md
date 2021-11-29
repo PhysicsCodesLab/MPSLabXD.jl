@@ -92,3 +92,9 @@ For a finite MPS, it can be done by doing SVD or QR decomposition from one end o
 
 For an infinite MPS, it is in principle can be obtained by diagonalizing the transfer
 matrix. A better way is explained in [ref].
+
+
+
+## Bibliography
+
+[Frank1]: Ignacio Cirac, David Perez-Garcia, Norbert Schuch, Frank Verstraete, Matrix Product States and Projected Entangled Pair States: Concepts, Symmetries, and Theorems, arXiv:2011.12127v2
